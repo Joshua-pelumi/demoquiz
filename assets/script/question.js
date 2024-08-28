@@ -6,7 +6,7 @@ let questions = [
         question: "What is the correct way to declare a JavaScript variable?",
         answer: "var myVar",
         options: [
-            "var myVar ",
+            "var myVar",
             "myVar = 'value'; ",
             "variable myVar",
             "let myVar = 'value' "
