@@ -4,6 +4,7 @@ const info_box = document.querySelector(".info_box");
 const exit_btn = info_box.querySelector(".buttons .quit");
 const continue_btn = info_box.querySelector(".buttons .restart");
 const quiz_box = document.querySelector(".quiz_box");
+const timeCount = quiz_box.querySelector(".timer .timer_sec");
 
 const option_list = document.querySelector(".option_list");
 
@@ -24,10 +25,13 @@ continue_btn.onclick = () => {
     quiz_box.classList.add("activeQuiz"); // show quiz box
     showQuestions(0);
     quesCounter(1);
+    startTimer(15);
 }
 
 let que_count = 0;
 let que_numb = 1;
+let counter;
+let timeValue = 15;
 
 const next_btn = quiz_box.querySelector(".next_btn");
 
@@ -38,6 +42,8 @@ next_btn.onclick = () =>{
         que_numb++;
         showQuestions(que_count);
         quesCounter(que_numb);
+        clearInterval(counter);
+        startTimer(timeValue);
     }
     else{
         console.log("Questions completed");
@@ -93,6 +99,13 @@ function optionSelected(answer){
     }
 }
 
+function startTimer(time){
+    counter = setInterval(timer, 1000);
+    function timer(){
+        timeCount.textContent = time; 
+        time--;
+    }
+}
  
 function quesCounter(index){
     const buttom_ques_counter = quiz_box.querySelector(".total_que");

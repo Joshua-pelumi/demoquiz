@@ -171,7 +171,7 @@ body{
     user-select: none;
 }
 
-.quiz_box header .timer .time_sec{
+.quiz_box header .timer .timer_sec{
     position: relative;
     z-index: 99;
     font-size: 18px;
