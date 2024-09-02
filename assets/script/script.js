@@ -57,7 +57,7 @@ restart_quiz.onclick = () =>{
     clearInterval(counter);
     startTimer(timeValue);
     clearInterval(counterLine);
-    startTimerLine(widthtimeValue);
+    startTimerLine(widthValue);
     next_btn.style.display = "none";
 }
 
@@ -122,22 +122,21 @@ function optionSelected(answer){
         answer.classList.add("incorrect");
         console.log('answer is wrong');
         answer.insertAdjacentHTML("beforeend", crossIcon)
-    }
 
     //if answers is incorrect, the automaticallly selected correct answer
     for (let i = 0; i < allOptions; i++){
-        if(option_list.children[i].textContent == correctAns){
-            option_list.children[i].setAttribute("class", "option correct");
-            option_list.children[i].insertAdjacentHTML("beforeend", tickIcon);
-        } 
+        option_list.children[i].classList.add("disabled");
     }
+    next_btn.style.display = "block";
+    }
+}
 
     //once user selected disabled all options
     for (let i = 0; i < allOptions; i++){
         option_list.children[i].classList.add("disabled");
     }
     next_btn.style.display = "block";
-}
+
 
 function startTimer(time){
     counter = setInterval(timer, 1000);
@@ -146,11 +145,21 @@ function startTimer(time){
         time--;
         if(time < 9){
             let addZero = timeCount.textContent;
-            timeCount.textContent = "0", addZero;
+            timeCount.textContent = "0" + addZero;
         }
         if(time < 0){
             clearInterval(counter);
-            timeCount.textContent = "00  ";
+            timeCount.textContent = "00";
+
+            let correctAns = questions[que_count].answer;
+            let allOptions = option_list.children.length;
+
+            for (let i = 0; i < allOptions; i++){
+                if(option_list.children[i].textContent == correctAns){
+                    option_list.children[i].setAttribute("class", "option correct");
+                    option_list.children[i].insertAdjacentHTML("beforeend", tickIcon);
+                }
+            }
         }
     }
 }
@@ -181,6 +190,12 @@ function startTimerLine(time){
         timeLine.style.width = time + "px";
         if(time < 549){
             clearInterval(counterLine);
+
+            for (let i = 0; i < allOptions; i++){
+                if(option_list.children[i].textContent == correctAns){
+                    option_list.children[i].setAttribute("class", "option correct");
+                    option_list.children[i].insertAdjacentHTML("beforeend", tickIcon);
+                }
         }
     }
 }
@@ -189,4 +204,5 @@ function quesCounter(index){
     const buttom_ques_counter = quiz_box.querySelector(".total_que");
     let totalQuesCountTag = '<span><p>' + index + '</p> of <p>' + questions.length  + '</p> Questions</span>';
     buttom_ques_counter.innerHTML = totalQuesCountTag;
+    }
 }
